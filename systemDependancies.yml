@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+
+    - name: Debug
+      debug: msg="ansible_os_family={{ansible_os_family}} ansible_distribution_version={{ansible_distribution_version}}"
+      sudo: no
+
+    - name: ~/.ssh
+      file: path=~/.ssh state=directory mode=0700
+      sudo: no
+    - name: check for private key
+      shell: test -f ~/.ssh/id_rsa
+      register: privatekey_present
+      failed_when: False
+    - name: private key permissions if it exists
+      file: path=~/.ssh/id_rsa mode=0600
+      when: privatekey_present.rc != 0
+      sudo: no
+    - name: check for public key
+      shell: test -f ~/.ssh/id_rsa
+      register: publickey_present
+      failed_when: False
+    - name: public key permissions if it exists
+      file: path=~/.ssh/id_rsa.pub mode=0600
+      when: publickey_present.rc != 0
+      sudo: no
+
+    - name: Install dev tools
+      action: apt name={{ item }} state=installed
+      with_items:
+        - git
+        - tig
+        - bundler
+        - python-rpi.gpio
+        - wiringpi
+
+    - name: Manual steps
+      debug: msg="Add your ssh keys to access github if required"
+      sudo: no
+
+# sudo apt-get install ansible
+# clear && ansible-playbook -i "localhost," -c local systemDependancies.yml
