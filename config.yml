@@ -1,6 +1,7 @@
 database:
   host: localhost
   name: stats
+  series: default
   username: user
   password: pass
 poll_frequency: 1
