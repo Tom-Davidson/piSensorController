@@ -14,7 +14,12 @@ hostname = `hostname`
 def cpu_load
   `uptime | cut -d',' -f4 | cut -d':' -f2`.strip.to_f
 end
+trap 'SIGINT' do
+  puts 'Finishing!'
+  exit 130
+end
 
+puts 'Collecting...'
 loop do
   data = {
     values: { value: cpu_load },
