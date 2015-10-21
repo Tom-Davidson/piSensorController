@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'influxdb'
+require 'yaml'
+
+config = YAML.load_file('config.yml')
+config['database']['series'] = 'cpu'
+influxdb = InfluxDB::Client.new config['database']['name'],
+                                host: config['database']['host'],
+                                username: config['database']['username'],
+                                password: config['database']['password']
+hostname = `hostname`
+
+def cpu_load
+  `uptime | cut -d',' -f4 | cut -d':' -f2`.strip.to_f
+end
+
+loop do
+  data = {
+    values: { value: cpu_load },
+    tags: { host: hostname }
+  }
+  influxdb.write_point(config['database']['series'], data)
+  sleep config['poll_frequency'].to_i
+end
