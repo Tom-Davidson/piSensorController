@@ -1,17 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'bundler'
-Bundler.setup
-Bundler.require
+require 'pi_piper'
+include PiPiper
 
-io = WiringPi::GPIO.new do |gpio|
-  gpio.pin_mode(0, WiringPi::OUTPUT)
-  gpio.pin_mode(1, WiringPi::INPUT)
+# Output
+pin = PiPiper::Pin.new(pin: 17, direction: :out)
+pin.on
+sleep 1
+pin.off
+
+# Input
+watch pin: 23 do
+  puts "Pin changed from #{last_value} to #{value}"
 end
-
-pin_state = io.digital_read(1) # Read from pin 1
-puts pin_state
-
-io.digital_write(0, WiringPi::HIGH) # Turn pin 0 on
-io.delay(100)                       # Wait
-io.digital_write(0, WiringPi::LOW)  # Turn pin 0 off
+# or ...
+# after pin: 23, goes: :high do
+#   puts "Button pressed"
+# end
+PiPiper.wait
