@@ -36,6 +36,12 @@
         - python-rpi.gpio
         - wiringpi
 
+    - name: Add OneWire support
+      lineinfile: dest=/boot/config.txt
+                  regexp=''
+                  insertafter=EOF
+                  line='dtoverlay=w1-gpio'
+
     - name: Manual steps
       debug: msg="Add your ssh keys to access github if required"
       sudo: no
