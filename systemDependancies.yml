@@ -41,6 +41,16 @@
                   regexp=''
                   insertafter=EOF
                   line='dtoverlay=w1-gpio'
+    - name: Load OneWire w1-gpio on boot
+      lineinfile: dest=/etc/modules
+                  regexp='^w1-gpio'
+                  insertafter=EOF
+                  line='w1-gpio'
+    - name: Load OneWire w1-therm on boot
+      lineinfile: dest=/etc/modules
+                  regexp='^w1-therm'
+                  insertafter='^w1-gpio'
+                  line='w1-therm'
 
     - name: Manual steps
       debug: msg="Add your ssh keys to access github if required"
