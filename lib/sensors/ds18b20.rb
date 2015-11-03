@@ -18,4 +18,18 @@ class DS18B20
     end
     @resource
   end
+
+  def read
+    data = File.read(resource)
+    line1, line2 = data.split(/\n/)
+    data1 = line1.split(/ /)
+    status = data1[11]
+    if status == 'YES'
+      data2 = line2.split(/ /)
+      _, temperature = data2[9].split(/=/)
+      temperature.to_f / 1000.0
+    else
+      fail IOError, 'Cannot read from device'
+    end
+  end
 end

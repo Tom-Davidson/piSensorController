@@ -18,4 +18,20 @@ describe DS18B20 do
     allow(sensor).to receive(:handles).and_return(['28-YYYY'])
     expect(sensor.resource).to eq('/sys/bus/w1/devices/28-YYYY/w1_slave')
   end
+  context 'device reads ok' do
+    it '.read' do
+      allow(File).to receive(:read).and_return(
+        "75 01 55 00 7f ff 0c 10 2b : crc=2b YES\n75 01 55 00 7f ff 0c 10 2b t=23312"
+      )
+      expect(sensor.read).to eq(23_312.0 / 1000.0)
+    end
+  end
+  context 'device read fails' do
+    it '.read' do
+      allow(File).to receive(:read).and_return(
+        "75 01 55 00 7f ff 0c 10 2b : crc=2b NO\n75 01 55 00 7f ff 0c 10 2b"
+      )
+      expect { sensor.read }.to raise_error(IOError, 'Cannot read from device')
+    end
+  end
 end
