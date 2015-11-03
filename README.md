@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/Tom-Davidson/piSensorController.png?label=ready&title=Ready)](https://waffle.io/Tom-Davidson/piSensorController)
+[![Stories in Ready](https://badge.waffle.io/Tom-Davidson/piSensorController.png?label=ready&title=Ready)](https://waffle.io/Tom-Davidson/piSensorController) [![Circle CI](https://circleci.com/gh/Tom-Davidson/piSensorController.svg?style=svg)](https://circleci.com/gh/Tom-Davidson/piSensorController)
 # piSensorController
 Simple home automation project for my daughter's room.
 

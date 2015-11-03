@@ -1,0 +1,4 @@
+machine:
+  ruby:
+    version:
+      ruby 2.1.5 # exact version on my pi is ruby 2.1.5p273 (2014-11-13) [arm-linux-gnueabihf]
