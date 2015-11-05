@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+require 'influxdb'
+require 'yaml'
+require_relative '../lib/sensors/ds18b20'
+
+config = YAML.load_file('config.yml')
+config['database']['series'] = 'temperature'
+influxdb = InfluxDB::Client.new config['database']['name'],
+                                host: config['database']['host'],
+                                username: config['database']['username'],
+                                password: config['database']['password']
+hostname = `hostname`
+
+trap 'SIGINT' do
+  puts 'Finishing!'
+  exit 130
+end
+
+sensor = DS18B20.new
+puts 'Collecting...'
+loop do
+  data = {
+    values: { value: sensor.read },
+    tags: { host: hostname }
+  }
+  influxdb.write_point(config['database']['series'], data)
+  sleep config['poll_frequency'].to_i
+end

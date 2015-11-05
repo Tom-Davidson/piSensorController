@@ -16,6 +16,7 @@ Simple home automation project for my daughter's room.
 ## Applications
  - `bin/gpio_test` turns pin 17 on, off then watches pin 23 sending output to the command line, this is for test/validation purposes only
  - `bin/monitor_cpu` polls the cpu load (1 minute average) every minute and sends the data to InfluxDB
+ - `bin/temperature` polls the DS18B20 every 'poll_frequency' and sends the data to InfluxDB
 
 ## Notes:
 Useful links
