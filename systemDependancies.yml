@@ -27,7 +27,7 @@
       when: publickey_present.rc != 0
       sudo: no
 
-    - name: Install dev tools
+    - name: Install system software
       action: apt name={{ item }} state=installed
       with_items:
         - git
@@ -35,6 +35,7 @@
         - bundler
         - python-rpi.gpio
         - wiringpi
+        - supervisor
 
     - name: Add OneWire support
       lineinfile: dest=/boot/config.txt
