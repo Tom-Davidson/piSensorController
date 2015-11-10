@@ -20,16 +20,27 @@ class DS18B20
   end
 
   def read
-    data = File.read(resource)
+    data = parse(raw_poll)
+    fail IOError, 'Cannot read from device' unless data[:status]
+    data[:value]
+  end
+
+  private
+
+  def raw_poll
+    File.read(resource)
+  end
+
+  def parse(data)
     line1, line2 = data.split(/\n/)
     data1 = line1.split(/ /)
-    status = data1[11]
-    if status == 'YES'
-      data2 = line2.split(/ /)
-      _, temperature = data2[9].split(/=/)
-      temperature.to_f / 1000.0
-    else
-      fail IOError, 'Cannot read from device'
-    end
+    data2 = line2.split(/ /)
+    fail IOError, 'Cannot read from device' unless data1[11] && data2[9]
+    _, temperature = data2[9].split(/=/)
+    {
+      status: data1[11],
+      value: temperature.to_f / 1000.0,
+      data: data
+    }
   end
 end

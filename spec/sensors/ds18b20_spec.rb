@@ -22,9 +22,12 @@ describe DS18B20 do
     it '.read' do
       allow(sensor).to receive(:resource).and_return('/tmp/resource')
       allow(File).to receive(:read).with('/tmp/resource').and_return(
-        "75 01 55 00 7f ff 0c 10 2b : crc=2b YES\n75 01 55 00 7f ff 0c 10 2b t=23312"
+        [
+          "75 01 55 00 7f ff 0c 10 2b : crc=2b YES\n",
+          '75 01 55 00 7f ff 0c 10 2b t=23312'
+        ].join
       )
-      expect(sensor.read).to eq(23_312.0 / 1000.0)
+      expect(sensor.read).to eq(23_312 / 1000.0)
     end
   end
   context 'device read fails' do
