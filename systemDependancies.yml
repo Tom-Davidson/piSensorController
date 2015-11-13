@@ -36,6 +36,8 @@
         - python-rpi.gpio
         - wiringpi
         - supervisor
+    - name: supervisord config
+      copy: src=supervisor-piSensorController.conf dest=/etc/supervisor/conf.d/piSensorController.conf owner=root group=root mode=0644
     - name: start supervisord
       service: name=supervisor state=running enabled=yes
 
