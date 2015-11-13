@@ -36,6 +36,8 @@
         - python-rpi.gpio
         - wiringpi
         - supervisor
+    - name: start supervisord
+      service: name=supervisor state=running enabled=yes
 
     - name: Add OneWire support
       lineinfile: dest=/boot/config.txt
