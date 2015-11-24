@@ -2,6 +2,14 @@
 # piSensorController
 Simple home automation project for my daughter's room.
 
+## Preparing the pi
+ - I used a fresh install of [Raspbian (Jessie)](https://www.raspberrypi.org/downloads/raspbian/)
+ - `sudo raspi-config` to Expand the filesystem and enable SSH
+ - if using wireless
+   - `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf` to add `network={ ssid="Your_Wifi_Name" psk="Your_Wifi_password" }`
+   - `sudo nano /etc/network/interfaces` to modify `iface wlan0 inet manual` to `iface wlan0 inet dhcp`
+   - `sudo reboot`
+
 ## Getting Started:
  - `sudo apt-get install ansible`
  - `clear && ansible-playbook -i "localhost," -c local systemDependancies.yml`
