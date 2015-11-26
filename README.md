@@ -9,6 +9,7 @@ Simple home automation project for my daughter's room.
    - `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf` to add `network={ ssid="Your_Wifi_Name" psk="Your_Wifi_password" }`
    - `sudo nano /etc/network/interfaces` to modify `iface wlan0 inet manual` to `iface wlan0 inet dhcp`
    - `sudo reboot`
+ - Set up your ssh keys
 
 ## Getting Started:
  - `sudo apt-get install ansible`
