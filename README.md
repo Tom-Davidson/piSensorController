@@ -15,10 +15,10 @@ Simple home automation project for my daughter's room.
  - Checkout the code: `git clone git@github.com:Tom-Davidson/piSensorController.git ~/Documents/piSensorController`
  - `sudo apt-get install ansible`
  - `clear && ansible-playbook -i "localhost," -c local systemDependancies.yml`
- - `sudo reboot` (if you want OneWire support immediately)
  - `bundle install`
  - Modify `config.yml` to set the host, username and password for your InfluxDB server
  - `bundle exec bin/monitor_cpu &` to test the link to InfluxDB
+ - `sudo reboot` (if you want OneWire support immediately)
 
 ## Raspberry Pi Wiring
  - [Temperature sensor](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing?view=all#hardware)
