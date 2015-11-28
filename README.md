@@ -12,6 +12,7 @@ Simple home automation project for my daughter's room.
  - Set up your ssh keys
 
 ## Getting Started:
+ - Checkout the code: `git clone git@github.com:Tom-Davidson/piSensorController.git ~/Documents/piSensorController`
  - `sudo apt-get install ansible`
  - `clear && ansible-playbook -i "localhost," -c local systemDependancies.yml`
  - `sudo reboot` (if you want OneWire support immediately)
