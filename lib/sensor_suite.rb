@@ -1,26 +1,26 @@
 # A collection of senses
 class SensorSuite
   def initialize
-    @senses = []
+    @senses = {}
   end
 
-  def <<(sense)
-    @senses << sense
-  end
-
-  def to_a
+  def to_hash
     @senses
   end
 
-  def each(&block)
-    to_a.each { |sense| block.call(sense) }
+  def <<(args)
+    name = args[0]
+    sense = args[1]
+    fail ArgumentError, 'sense is not a Sense' unless sense.respond_to?(:read)
+    @senses[name.to_sym] = sense
+    true
   end
 
   def read
-    environment = {}
-    each do |sense|
-      environment[sense.name] = sense.read
+    readings = {}
+    @senses.each do |name, sense|
+      readings[name] = sense.read
     end
-    environment
+    readings
   end
 end
