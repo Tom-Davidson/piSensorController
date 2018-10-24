@@ -11,7 +11,8 @@ class SensorSuite
   def <<(args)
     name = args[0]
     sense = args[1]
-    fail ArgumentError, 'sense is not a Sense' unless sense.respond_to?(:read)
+    raise ArgumentError, 'sense is not a Sense' unless sense.respond_to?(:read)
+
     @senses[name.to_sym] = sense
     true
   end

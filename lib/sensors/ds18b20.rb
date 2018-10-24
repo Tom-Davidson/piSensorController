@@ -21,7 +21,8 @@ class DS18B20
 
   def read
     data = parse(raw_poll)
-    fail IOError, 'Cannot read from device' unless data[:status]
+    raise IOError, 'Cannot read from device' unless data[:status]
+
     data[:value]
   end
 
@@ -35,7 +36,8 @@ class DS18B20
     line1, line2 = data.split(/\n/)
     data1 = line1.split(/ /)
     data2 = line2.split(/ /)
-    fail IOError, 'Cannot read from device' unless data1[11] && data2[9]
+    raise IOError, 'Cannot read from device' unless data1[11] && data2[9]
+
     _, temperature = data2[9].split(/=/)
     {
       status: data1[11],

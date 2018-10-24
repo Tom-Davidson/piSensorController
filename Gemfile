@@ -5,6 +5,6 @@ gem 'pi_piper' # https://github.com/jwhitehorn/pi_piper
 
 group :test, :development do
   gem 'rake'
-  gem 'rubocop'
   gem 'rspec'
+  gem 'rubocop'
 end
